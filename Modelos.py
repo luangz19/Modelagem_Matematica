@@ -1,11 +1,12 @@
 import pandas as pd
 import numpy as np
+import streamlit as st
 
 # Classe de datasets dos parâmetros estimados
 class Datasets():
     def __init__(self):
         self.name = str
-    
+    @st.cache_data
     def data_set_load(self, name=str):
         self.name = name
         if self.name == "Modelo_Logistico":
