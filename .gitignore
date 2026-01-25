@@ -1,0 +1,13 @@
+# (opcional) arquivos temporários do Jupyter
+*.ipynb_checkpoints/
+
+# arquivos Jupyter
+*.ipynb
+
+# arquivos excel
+*.xlsx
+
+__pycache__/
+*.pyc
+
+
