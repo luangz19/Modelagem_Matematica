@@ -16,9 +16,11 @@ st.markdown("""
 - Controle
 - Droga
 - Radiação  
-- Droga+Radiação
+- Droga+Radiação""")
 
-### Modelos matemáticos utilizados: """)
+st.link_button("Dados completos da pesquisa", "https://www.causeweb.org/tshs/tumor-growth/")
+
+st.markdown("""### Modelos matemáticos utilizados:""")
 
 st.markdown(""" #### Modelo Logístico""")
 st.latex(r''' \begin{equation*} \begin{cases} \displaystyle \frac{dN}{dt} = r N \left(1 - \frac{N}{K} \right)  \\ 
