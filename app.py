@@ -72,9 +72,9 @@ def figura1(option:str):
 
 # Identificação de cada grupo
 id_Controle =["ID-"+str(101 + i) for i in range(8)]
-id_Droga  =["ID-"+str(201 + i) for i in range(8)]
-id_Radiacao =["ID-"+str(301 + i) for i in range(8)]
-id_Droga_Radiacao =["ID-"+str(401 + i) for i in range(8)]
+id_Droga  =["ID-"+str(201 + i) for i in range(10)]
+id_Radiacao =["ID-"+str(301 + i) for i in range(10)]
+id_Droga_Radiacao =["ID-"+str(401 + i) for i in range(9)]
 
 # Grupo de Controle
 if option1 == "Controle":
