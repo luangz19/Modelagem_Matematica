@@ -1,24 +1,5 @@
 import pandas as pd
 import numpy as np
-
-# Classe de datasets dos parâmetros estimados
-class Datasets():
-    def __init__(self):
-        self.name = str
-    def data_set_load(self, name=str):
-        self.name = name
-        if self.name == "Modelo_Logistico":
-            dataset = pd.read_csv("Datasets/Dados_Logistico.csv")
-            return dataset
-        elif self.name == "Modelo_Gompertz":
-            dataset = pd.read_csv("Datasets/Dados_Gompertz.csv")
-            return dataset
-        elif self.name == "Modelo_Logistico_Generalizado":
-            dataset = pd.read_csv("Datasets/Dados_Logistico_Generalizado.csv")
-            return dataset
-        elif self.name == "Modelo_Gompertz_Modificado":
-            dataset = pd.read_csv("Datasets/Dados_Gompertz_Modificado.csv")
-            return dataset
         
 # Classe inicial para os parâmetros
 class Parametros():

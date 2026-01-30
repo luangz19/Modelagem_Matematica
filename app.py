@@ -3,7 +3,6 @@ import streamlit as st
 import pandas as pd
 from Modelos import Modelo_Logistico as ML, Modelo_Gompertz as MG
 from Modelos import Modelo_Logistico_Generalizado as MLG, Modelo_Gompertz_Modificado as MGM
-#from Modelos import Datasets as data
 
 st.markdown("""
 # Modelagem Matemática
@@ -46,10 +45,12 @@ st.latex(r''' \begin{equation*} \begin{cases} \displaystyle \frac{dN}{dt} = r \l
 
 st.markdown(""" ### Dados dos Camudongo""")
 
+# Criando caixa seletora com os grupos experimentais
 option1 = st.selectbox("Escolha um Grupo:",
                       ("Controle", "Droga", "Radiação", "Droga+Radiação"), key="Grupos")
 
-# Função para dados informativos
+# Função para dados informativos:
+# Média do Tumor, Volume Máximo, Dia do Óbito
 @st.cache_data
 def dados(option:str):
     dados_camudongos = pd.read_csv("Datasets/dados_dos_camundongos.csv")
@@ -64,36 +65,38 @@ def dados(option:str):
     dados = pd.DataFrame({"Média do Tumor":[media], "Volume Máximo":[volume], "Dia do Óbito":[obito]})
     return dados.round(2)
 
-# Figura de exibição dos dados
+# Figura de exibição dos dados dos grupos experimentais
 def figura1(option:str):
     fig = f"Figuras/Experimento/{option}.png"
     return fig
 
+# Identificação de cada grupo
+id_Controle =["ID-"+str(101 + i) for i in range(8)]
+id_Droga  =["ID-"+str(101 + i) for i in range(8)]
+id_Radiacao =["ID-"+str(101 + i) for i in range(8)]
+id_Droga_Radiacao =["ID-"+str(101 + i) for i in range(8)]
+
 # Grupo de Controle
 if option1 == "Controle":
-    id =["ID-"+str(101 + i) for i in range(8)]
-    option2 = st.selectbox("Escolha o ID", id, key="Grupo Controle")
+    option2 = st.selectbox("Escolha o ID", id_Controle, key="Grupo Controle")
     st.dataframe(dados(option=option2), hide_index=True)
     st.image(figura1(option2))
 
 # Grupo de Droga
 elif option1 == "Droga":
-    id = ("ID-"+str(201 + i) for i in range(10))
-    option3 = st.selectbox("Escolha o ID", id, key="Grupo Droga")
+    option3 = st.selectbox("Escolha o ID", id_Droga, key="Grupo Droga")
     st.dataframe(dados(option=option3), hide_index=True)
     st.image(figura1(option3))
 
 # Grupo de Radiação
 elif option1 == "Radiação":
-    id = ("ID-"+str(301 + i) for i in range(10))
-    option4 = st.selectbox("Escolha o ID", id, key="Grupo Radiação")
+    option4 = st.selectbox("Escolha o ID", id_Radiacao, key="Grupo Radiação")
     st.dataframe(dados(option=option4), hide_index=True)
     st.image(figura1(option4))
 
 # Grupo de Droga + Radiação
 elif option1 == "Droga+Radiação":
-    id = ("ID-"+str(401 + i) for i in range(9))
-    option5 = st.selectbox("Escolha o ID", id, key="Grupo Droga + Radiação")
+    option5 = st.selectbox("Escolha o ID", id_Droga_Radiacao, key="Grupo Droga + Radiação")
     st.dataframe(dados(option=option5), hide_index=True)
     st.image(figura1(option5))
 
@@ -114,13 +117,15 @@ def data_set_load():
     Gompertz_Modificado = pd.read_csv("Datasets/Dados_Gompertz_Modificado.csv")
     return [Logistico, Gompertz, Logistico_Generalizado, Gompertz_Modificado]
 
+# Carregandos os dados
 df_Logistico, df_Gompertz, df_Log_Gen, df_Gomp_Mod = data_set_load()
 
-# Função Objeto
+# Função para carregar os dados do modelos escolhido
 def modelos(obj:object):
     dic = obj
     return st.dataframe(pd.DataFrame(dic), hide_index=True)
 
+# Criando caixa seletora dos modelos estudados
 model = st.selectbox("Escolha o Modelo",
                      ("Logístico", "Gompertz", "Logístico Generalizado", "Gompertz Modificado"),
                      key="modelos")
@@ -192,7 +197,7 @@ if model == "Gompertz Modificado":
 
 st.markdown("""### Curvas Ajustadas""")
 
-
+# Criando caixa seletora para visualizar as curvas do modelo escolhido
 model = st.selectbox("Escolha o Modelo",
                      ("Logístico", "Gompertz", "Logístico Generalizado", "Gompertz Modificado"),
                      key="modelos simulação")
@@ -205,6 +210,7 @@ def figura2(pasta:str, option:str): # Função para pegar as imagens da pasta
 # Função Criadora do botão
 def grupo(chave:str):
     return st.selectbox("Escolha um Grupo", ("Controle", "Droga", "Radiação", "Droga+Radiação"),  key=chave)
+
 # Função Criadora da imagem
 def construcao(id:list, pasta:str):
     escolha = st.selectbox("Selecione um ID", id, key="Curvas Controle")
