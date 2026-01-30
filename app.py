@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 from Modelos import Modelo_Logistico as ML, Modelo_Gompertz as MG
 from Modelos import Modelo_Logistico_Generalizado as MLG, Modelo_Gompertz_Modificado as MGM
-from Modelos import Datasets as data
+#from Modelos import Datasets as data
 
 st.markdown("""
 # Modelagem Matemática
@@ -106,11 +106,15 @@ elif option1 == "Droga+Radiação":
 st.markdown(""" ### Dados da estimação dos parâmetros dos Modelos """)
 
 # Conjunto de dataset dos parâmetros estimados
-df_Logistico = data().data_set_load("Modelo_Logistico")
-df_Gompertz = data().data_set_load("Modelo_Gompertz")
-df_Log_Gen = data().data_set_load("Modelo_Logistico_Generalizado")
-df_Gomp_Mod = data().data_set_load("Modelo_Gompertz_Modificado")
+@st.cache_data
+def data_set_load():
+    Logistico = pd.read_csv("Datasets/Dados_Logistico.csv")
+    Gompertz = pd.read_csv("Datasets/Dados_Gompertz.csv")
+    Logistico_Generalizado = pd.read_csv("Datasets/Dados_Logistico_Generalizado.csv")
+    Gompertz_Modificado = pd.read_csv("Datasets/Dados_Gompertz_Modificado.csv")
+    return [Logistico, Gompertz, Logistico_Generalizado, Gompertz_Modificado]
 
+df_Logistico, df_Gompertz, df_Log_Gen, df_Gomp_Mod = data_set_load()
 
 # Função Objeto
 def modelos(obj:object):

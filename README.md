@@ -5,5 +5,4 @@ App em Streamlit para:
 - Ajuste de curvas 
 - Plotagem de gráficos e parâmetros ajustados
 
-⚠️ Dados experimentais originais não são disponibilizados.
-
+https://modelagemmatematica-kifjfrfm7x5oprmtsvbcrc.streamlit.app/
