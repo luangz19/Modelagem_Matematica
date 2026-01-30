@@ -70,7 +70,7 @@ def figura1(option:str):
     fig = f"Figuras/Experimento/{option}.png"
     return fig
 
-# Identificação de cada grupo
+# Criando variaveis para identificação de cada grupo
 id_Controle =["ID-"+str(101 + i) for i in range(8)]
 id_Droga  =["ID-"+str(201 + i) for i in range(10)]
 id_Radiacao =["ID-"+str(301 + i) for i in range(10)]
@@ -219,70 +219,53 @@ def construcao(id:list, pasta:str):
 if model == "Logístico":
     grupo = st.selectbox("Escolha um Grupo", ("Controle", "Droga", "Radiação", "Droga+Radiação"),  key="Simulçao Logístico")
     if grupo == "Controle": # 0 - 7
-        id = ["ID-"+str(101 + i) for i in range(8)]
-        escolha = st.selectbox("Selecione um ID", id, key="Curvas Controle")
+        escolha = st.selectbox("Selecione um ID", id_Controle, key="Curvas Controle")
         st.image(figura2(pasta="Logistico", option=escolha))
 
     elif grupo == "Droga": # 8 - 17
-        id = ["ID-"+str(201 + i) for i in range(10)]
-        escolha = st.selectbox("Selecione um ID", id, key="Curvas Droga")
+        escolha = st.selectbox("Selecione um ID", id_Droga, key="Curvas Droga")
         st.image(figura2(pasta="Logistico", option=escolha))
 
     elif grupo == "Radiação": # 18-27
-       id = ["ID-"+str(301 + i) for i in range(10)]
-       escolha = st.selectbox("Selecione um ID", id, key="Curvas Radiação")
+       escolha = st.selectbox("Selecione um ID", id_Radiacao, key="Curvas Radiação")
        st.image(figura2(pasta="Logistico", option=escolha))
     
     elif grupo == "Droga+Radiação": # 28-36
-        id = ["ID-"+str(401 + i) for i in range(9)]
-        escolha = st.selectbox("Selecione um ID", id, key="Curvas Droga+Radiação")
+        escolha = st.selectbox("Selecione um ID", id_Droga_Radiacao, key="Curvas Droga+Radiação")
         st.image(figura2(pasta="Logistico", option=escolha))
 
 elif model == "Gompertz":
     grupo = grupo(chave="Curvas Gompertz")
     if grupo == "Controle":
-        id = ["ID-"+str(101 + i) for i in range(8)]
-        construcao(id=id, pasta="Gompertz")
+        construcao(id=id_Controle, pasta="Gompertz")
     elif grupo == "Droga":
-        id = ["ID-"+str(201 + i) for i in range(10)]
-        construcao(id=id, pasta="Gompertz")
+        construcao(id=id_Droga, pasta="Gompertz")
     elif grupo == "Radiação":
-        id = ["ID-"+str(301 + i) for i in range(10)]
-        construcao(id=id, pasta="Gompertz")
+        construcao(id=id_Radiacao, pasta="Gompertz")
     elif grupo == "Droga+Radiação":
-        id = ["ID-"+str(401 + i) for i in range(9)]
-        construcao(id=id, pasta="Gompertz")
+        construcao(id=id_Droga_Radiacao, pasta="Gompertz")
 
 elif model == "Logístico Generalizado":
     grupo = grupo(chave="Curvas Logístico Generalizado")
     if grupo == "Controle":
-        id = ["ID-"+str(101 + i) for i in range(8)]
-        construcao(id=id, pasta="Logistico_Generalizado")
+        construcao(id=id_Controle, pasta="Logistico_Generalizado")
     elif grupo == "Droga":
-        id = ["ID-"+str(201 + i) for i in range(10)]
-        construcao(id=id, pasta="Logistico_Generalizado")
+        construcao(id=id_Droga, pasta="Logistico_Generalizado")
     elif grupo == "Radiação":
-        id = ["ID-"+str(301 + i) for i in range(10)]
-        construcao(id=id, pasta="Logistico_Generalizado")
+        construcao(id=id_Radiacao, pasta="Logistico_Generalizado")
     elif grupo == "Droga+Radiação":
-        id = ["ID-"+str(401 + i) for i in range(9)]
-        construcao(id=id, pasta="Logistico_Generalizado")
+        construcao(id=id_Droga_Radiacao, pasta="Logistico_Generalizado")
 
 elif model == "Gompertz Modificado":
     grupo = grupo(chave="Curvas Gompertz Modificado")
     if grupo == "Controle":
-        id = ["ID-"+str(101 + i) for i in range(8)]
-        construcao(id=id, pasta="Gompertz_Modificado")
+        construcao(id=id_Controle, pasta="Gompertz_Modificado")
     elif grupo == "Droga":
-        id = ["ID-"+str(201 + i) for i in range(10)]
-        construcao(id=id, pasta="Gompertz_Modificado")
+        construcao(id=id_Droga, pasta="Gompertz_Modificado")
     elif grupo == "Radiação":
-        id = ["ID-"+str(301 + i) for i in range(10)]
-        construcao(id=id, pasta="Gompertz_Modificado")
+        construcao(id=id_Radiacao, pasta="Gompertz_Modificado")
     elif grupo == "Droga+Radiação":
-        id = ["ID-"+str(401 + i) for i in range(9)]
-        construcao(id=id, pasta="Gompertz_Modificado")
-
+        construcao(id=id_Droga_Radiacao, pasta="Gompertz_Modificado")
 
 #=================================================================================================
 #
