@@ -17,8 +17,8 @@ st.markdown("""
 - Radiação  
 - Droga+Radiação""")
 
-st.text("Os dados experimentais utilizados neste trabalho foram obtidos a partir de uma base pública")
-st.link_button("Dados da pesquisa", "https://www.causeweb.org/tshs/tumor-growth/")
+st.text("Os dados experimentais utilizados neste trabalho foram obtidos a partir de uma base pública. Diponível em:")
+st.link_button("Tumor Growth", "https://www.causeweb.org/tshs/tumor-growth/")
 
 st.markdown("""### Modelos matemáticos utilizados:""")
 
