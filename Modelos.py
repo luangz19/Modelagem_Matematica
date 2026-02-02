@@ -118,5 +118,5 @@ class Modelo_Gompertz_Modificado():
                 lista.append(r)
                 lista.append(n0)
         r, n0 = lista
-        return K*np.exp(-np.exp(r * (np.exp(1)/K) * (Lambda - t) + 1))
+        return [t, K*np.exp(-np.exp(r * (np.exp(1)/K) * (Lambda - t) + 1))]
 

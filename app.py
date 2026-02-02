@@ -205,7 +205,7 @@ if model == "Gompertz Modificado":
 st.markdown("""### Curvas Ajustadas""")
 
 # Criando caixa seletora para visualizar as curvas do modelo escolhido
-model = st.selectbox("Escolha o Modelo", Modelos, key="modelos simulação")
+model = st.selectbox("Escolha o Modelo", Modelos, key="modelos curvas ajustadas")
 
 # Curvas do Modelo Logístico
 def figura2(pasta:str, option:str): # Função para pegar as imagens da pasta
@@ -295,9 +295,14 @@ if drogra_radiacao.button("Grupo de Droga+Radiação", width="stretch"):
 
 st.markdown("""# Simulação Computacional""")
 
+# Criando caixa seletora para visualizar as curvas do modelo escolhido
+model = st.selectbox("Escolha o Modelo", Modelos, key="modelos simulação")
 
-
-
+if model == "Logístico":
+    escolha = st.selectbox("Escolha o grupo", Grupos)
+    selecao = st.multiselect("Escolha", id_Controle)
+    x, y = ML(df_Logistico).logistica(ID=id_Controle)
+    st.line_chart(x=x, y=y)
 
 
 
