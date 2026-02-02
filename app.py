@@ -303,7 +303,8 @@ if model == "Logístico":
     selecao = st.selectbox("Escolha o grupo", id_Controle)
     #selecao = st.multiselect("Escolha", )
     x, y = ML(df_Logistico).logistica(ID=id_Controle)
-    st.line_chart(x=x, y=y)
+    data_simulacao = pd.DataFrame({"Tempo em Dias":x, "Volume do Tumor":y})
+    st.line_chart(data=data_simulacao, x="Tempo em Dias", y="Volume do Tumor")
 
 
 
