@@ -52,7 +52,7 @@ st.markdown(""" ### Dados dos Camudongo""")
 
 # Criando caixa seletora com os grupos experimentais
 option1 = st.selectbox("Escolha um Grupo:",
-                      ("Controle", "Droga", "Radiação", "Droga+Radiação"), key="Grupos")
+                      Grupos, key="Grupos")
 
 # Função para dados informativos:
 # Média do Tumor, Volume Máximo, Dia do Óbito
@@ -130,14 +130,17 @@ def modelos(obj:object):
     dic = obj
     return st.dataframe(pd.DataFrame(dic), hide_index=True)
 
+# Criando lista dos Modelos Estudados
 Modelos = ["Logístico", "Gompertz", "Logístico Generalizado", "Gompertz Modificado"]
+
+# Criando lista dos grupos experimentais
+Grupos = ["Controle", "Droga", "Radiação", "Droga+Radiação"]
 
 # Criando caixa seletora dos modelos estudados
 model = st.selectbox("Escolha o Modelo", Modelos, key="modelos")
-
 # Parâmetros do Modelo Logístico
 if model == "Logístico":
-    grupo = st.selectbox("Escolha um Grupo", ("Controle", "Droga", "Radiação", "Droga+Radiação"),  key="Prametros Logístico")
+    grupo = st.selectbox("Escolha um Grupo",Grupos,  key="Prametros Logístico")
     if grupo == "Controle": # 0 - 7
         modelos(ML(df_Logistico).lista_de_parametros(inicial=0, final=7))
 
@@ -152,7 +155,7 @@ if model == "Logístico":
 
 # Parâmetros do Modelo de Gompertz
 elif model == "Gompertz":
-    grupo = st.selectbox("Escolha um Grupo", ("Controle", "Droga", "Radiação", "Droga+Radiação"), key="Prametros Gompertz")
+    grupo = st.selectbox("Escolha um Grupo", Grupos, key="Prametros Gompertz")
     if grupo == "Controle": # 0 - 7
         modelos(MG(df_Gompertz).lista_de_parametros(inicial=0, final=7))
 
@@ -167,7 +170,7 @@ elif model == "Gompertz":
 
 # Parâmetros do Modelo Logístico Generalizado
 if model == "Logístico Generalizado":
-    grupo = st.selectbox("Escolha um Grupo", ("Controle", "Droga", "Radiação", "Droga+Radiação"),  key="Prametros Logístico Generalizado")
+    grupo = st.selectbox("Escolha um Grupo", Grupos,  key="Prametros Logístico Generalizado")
     if grupo == "Controle": # 0 - 7
         modelos(MLG(df_Log_Gen).lista_de_parametros(inicial=0, final=7))
 
@@ -182,7 +185,7 @@ if model == "Logístico Generalizado":
 
 # Parâmetros do Modelo Gompertz Modificado
 if model == "Gompertz Modificado":
-    grupo = st.selectbox("Escolha um Grupo", ("Controle", "Droga", "Radiação", "Droga+Radiação"),  key="Prametros Gompertz Modificado")
+    grupo = st.selectbox("Escolha um Grupo", Grupos,  key="Prametros Gompertz Modificado")
     if grupo == "Controle": # 0 - 7
         modelos(MGM(df_Gomp_Mod).lista_de_parametros(inicial=0, final=7))
 
@@ -203,9 +206,7 @@ if model == "Gompertz Modificado":
 st.markdown("""### Curvas Ajustadas""")
 
 # Criando caixa seletora para visualizar as curvas do modelo escolhido
-model = st.selectbox("Escolha o Modelo",
-                     ("Logístico", "Gompertz", "Logístico Generalizado", "Gompertz Modificado"),
-                     key="modelos simulação")
+model = st.selectbox("Escolha o Modelo", Modelos, key="modelos simulação")
 
 # Curvas do Modelo Logístico
 def figura2(pasta:str, option:str): # Função para pegar as imagens da pasta
@@ -214,7 +215,7 @@ def figura2(pasta:str, option:str): # Função para pegar as imagens da pasta
 
 # Função Criadora do botão
 def grupo(chave:str):
-    return st.selectbox("Escolha um Grupo", ("Controle", "Droga", "Radiação", "Droga+Radiação"),  key=chave)
+    return st.selectbox("Escolha um Grupo", Grupos,  key=chave)
 
 # Função Criadora da imagem
 def construcao(id:list, pasta:str):
@@ -222,7 +223,7 @@ def construcao(id:list, pasta:str):
     return st.image(figura2(pasta, option=escolha))
 
 if model == "Logístico":
-    grupo = st.selectbox("Escolha um Grupo", ("Controle", "Droga", "Radiação", "Droga+Radiação"),  key="Simulçao Logístico")
+    grupo = st.selectbox("Escolha um Grupo", Grupos,  key="Simulçao Logístico")
     if grupo == "Controle": # 0 - 7
         escolha = st.selectbox("Selecione um ID", id_Controle, key="Curvas Controle")
         st.image(figura2(pasta="Logistico", option=escolha))
