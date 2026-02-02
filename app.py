@@ -47,6 +47,11 @@ st.latex(r''' \begin{equation*} \begin{cases} \displaystyle \frac{dN}{dt} = r \l
 #
 #=================================================================================================
 
+# Criando lista dos Modelos Estudados
+Modelos = ["Logístico", "Gompertz", "Logístico Generalizado", "Gompertz Modificado"]
+
+# Criando lista dos grupos experimentais
+Grupos = ["Controle", "Droga", "Radiação", "Droga+Radiação"]
 
 st.markdown(""" ### Dados dos Camudongo""")
 
@@ -129,12 +134,6 @@ df_Logistico, df_Gompertz, df_Log_Gen, df_Gomp_Mod = data_set_load()
 def modelos(obj:object):
     dic = obj
     return st.dataframe(pd.DataFrame(dic), hide_index=True)
-
-# Criando lista dos Modelos Estudados
-Modelos = ["Logístico", "Gompertz", "Logístico Generalizado", "Gompertz Modificado"]
-
-# Criando lista dos grupos experimentais
-Grupos = ["Controle", "Droga", "Radiação", "Droga+Radiação"]
 
 # Criando caixa seletora dos modelos estudados
 model = st.selectbox("Escolha o Modelo", Modelos, key="modelos")
