@@ -130,10 +130,10 @@ def modelos(obj:object):
     dic = obj
     return st.dataframe(pd.DataFrame(dic), hide_index=True)
 
+Modelos = ["Logístico", "Gompertz", "Logístico Generalizado", "Gompertz Modificado"]
+
 # Criando caixa seletora dos modelos estudados
-model = st.selectbox("Escolha o Modelo",
-                     ("Logístico", "Gompertz", "Logístico Generalizado", "Gompertz Modificado"),
-                     key="modelos")
+model = st.selectbox("Escolha o Modelo", Modelos, key="modelos")
 
 # Parâmetros do Modelo Logístico
 if model == "Logístico":
@@ -293,7 +293,7 @@ if drogra_radiacao.button("Grupo de Droga+Radiação", width="stretch"):
     st.image(figura2(pasta="RMSE", option="RMSE_Droga_Radiação"))
 
 
-
+st.markdown("""# Simulação Computacional""")
 
 
 
