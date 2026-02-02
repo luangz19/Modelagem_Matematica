@@ -300,7 +300,8 @@ model = st.selectbox("Escolha o Modelo", Modelos, key="modelos simulação")
 
 if model == "Logístico":
     escolha = st.selectbox("Escolha o grupo", Grupos)
-    selecao = st.multiselect("Escolha", id_Controle)
+    selecao = st.selectbox("Escolha o grupo", id_Controle)
+    #selecao = st.multiselect("Escolha", )
     x, y = ML(df_Logistico).logistica(ID=id_Controle)
     st.line_chart(x=x, y=y)
 
