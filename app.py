@@ -6,20 +6,20 @@ from Modelos import Modelo_Logistico_Generalizado as MLG, Modelo_Gompertz_Modifi
 
 st.markdown("""
 # Modelagem Matemática
-            
-## Aplicação de modelos baseados em EDO's em experimentos com :blue[camudongos nudes]
+
+## Aplicação de modelos matemáticos baseados em equações diferenciais ordinárias em experimentos com :blue[camundongos nude].
 
 ### Doença: :red[Glioma humano]
 
-### Grupos de tratamento: 
+### Grupos de tratamento:
 - Controle
 - Droga
-- Radiação  
+- Radiação
 - Droga+Radiação""")
 
 st.markdown("""
 Os dados experimentais utilizados neste trabalho foram obtidos a partir de uma base pública.
-            
+
 Disponível em:
             """)
 
@@ -28,19 +28,19 @@ st.link_button("Tumor Growth", "https://www.causeweb.org/tshs/tumor-growth/")
 st.markdown("""### Modelos matemáticos utilizados:""")
 
 st.markdown(""" #### Modelo Logístico""")
-st.latex(r''' \begin{equation*} \begin{cases} \displaystyle \frac{dN}{dt} = r N \left(1 - \frac{N}{K} \right)  \\ 
+st.latex(r''' \begin{equation*} \begin{cases} \displaystyle \frac{dN}{dt} = r N \left(1 - \frac{N}{K} \right)  \\
          N(0) = n_0\end{cases}\end{equation*}''')
 
 st.markdown("""#### Modelo de Gompertz""")
-st.latex(r''' \begin{equation*} \begin{cases} \displaystyle \frac{dN}{dt} = r N \ln\left(\frac{K}{N} \right)  \\ 
+st.latex(r''' \begin{equation*} \begin{cases} \displaystyle \frac{dN}{dt} = r N \ln\left(\frac{K}{N} \right)  \\
          N(0) = n_0\end{cases}\end{equation*}''')
 
 st.markdown("""#### Modelo Logístico Generalizado""")
-st.latex(r''' \begin{equation*} \begin{cases} \displaystyle \frac{dN}{dt} = \frac{r}{\theta} N \left[1 - \left( \frac{N}{K} \right)^{\theta} \right] \\  \\ 
+st.latex(r''' \begin{equation*} \begin{cases} \displaystyle \frac{dN}{dt} = \frac{r}{\theta} N \left[1 - \left( \frac{N}{K} \right)^{\theta} \right] \\  \\
          N(0) = n_0\end{cases}\end{equation*}''')
 
 st.markdown("""#### Modelo de Gompertz Modificado""")
-st.latex(r''' \begin{equation*} \begin{cases} \displaystyle \frac{dN}{dt} = r \left( \frac{e}{K}\right) \ln\left(\frac{K}{N} N \right)  \\ \\ 
+st.latex(r''' \begin{equation*} \begin{cases} \displaystyle \frac{dN}{dt} = r \left( \frac{e}{K}\right) \ln\left(\frac{K}{N}\right)N  \\ \\
          \displaystyle N(0) = K \exp \left[-\exp \left( \frac{\lambda r e}{K}\right)\right]\end{cases}\end{equation*}''')
 
 #=================================================================================================
@@ -148,7 +148,7 @@ if model == "Logístico":
 
     elif grupo == "Radiação": # 18-27
         modelos(ML(df_Logistico).lista_de_parametros(18,27))
-    
+
     elif grupo == "Droga+Radiação": # 28-36
         modelos(ML(df_Logistico).lista_de_parametros(28,38))
 
@@ -163,7 +163,7 @@ elif model == "Gompertz":
 
     elif grupo == "Radiação": # 18-27
         modelos(MG(df_Gompertz).lista_de_parametros(18,27))
-    
+
     elif grupo == "Droga+Radiação": # 28-36
         modelos(MG(df_Gompertz).lista_de_parametros(28,38))
 
@@ -178,7 +178,7 @@ if model == "Logístico Generalizado":
 
     elif grupo == "Radiação": # 18-27
         modelos(MLG(df_Log_Gen).lista_de_parametros(18,27))
-    
+
     elif grupo == "Droga+Radiação": # 28-36
         modelos(MLG(df_Log_Gen).lista_de_parametros(28,38))
 
@@ -193,9 +193,9 @@ if model == "Gompertz Modificado":
 
     elif grupo == "Radiação": # 18-27
         modelos(MGM(df_Gomp_Mod).lista_de_parametros(18,27))
-    
+
     elif grupo == "Droga+Radiação": # 28-36
-        modelos(MGM(df_Gomp_Mod).lista_de_parametros(28,38)) 
+        modelos(MGM(df_Gomp_Mod).lista_de_parametros(28,38))
 
 #=================================================================================================
 #
@@ -234,7 +234,7 @@ if model == "Logístico":
     elif grupo == "Radiação": # 18-27
        escolha = st.selectbox("Selecione um ID", id_Radiacao, key="Curvas Radiação")
        st.image(figura2(pasta="Logistico", option=escolha))
-    
+
     elif grupo == "Droga+Radiação": # 28-36
         escolha = st.selectbox("Selecione um ID", id_Droga_Radiacao, key="Curvas Droga+Radiação")
         st.image(figura2(pasta="Logistico", option=escolha))
@@ -280,37 +280,80 @@ elif model == "Gompertz Modificado":
 st.markdown("""#### Comparação dos RMSEs de cada modelo""")
 controle, droga, radiacao, drogra_radiacao = st.columns(4)
 
+# Função que importa os dados
+@st.cache_data
+def rmse():
+    rmse_controle = pd.read_csv("./Figuras/RMSE/Controle_RMSE.csv")
+    rmse_droga = pd.read_csv("./Figuras/RMSE/Droga_RMSE.csv")
+    rmse_radiacao = pd.read_csv("./Figuras/RMSE/Radiacao_RMSE.csv")
+    rmse_droga_radiacao = pd.read_csv("./Figuras/RMSE/Droga_e_Radiacao_RMSE.csv")
+    return [rmse_controle, rmse_droga, rmse_radiacao, rmse_droga_radiacao]
+
+rmse_controle, rmse_droga, rmse_radiacao, rmse_droga_radiacao = rmse()
+
 if controle.button("Grupo de Controle", width="stretch"):
-    st.image(figura2(pasta="RMSE", option="RMSE_Controle"))
+    st.bar_chart(data=rmse_controle, x="ID", y=rmse_controle.columns[1:], stack=False, use_container_width=True)
+    #st.image(figura2(pasta="RMSE", option="RMSE_Controle"))
 
 if droga.button("Grupo de Droga", width="stretch"):
-    st.image(figura2(pasta="RMSE", option="RMSE_Droga"))
+    st.bar_chart(data=rmse_droga, x="ID", y=rmse_droga.columns[1:], stack=False, use_container_width=True)
+    # st.image(figura2(pasta="RMSE", option="RMSE_Droga"))
 
 if radiacao.button("Grupo de Radiação", width="stretch"):
-    st.image(figura2(pasta="RMSE", option="RMSE_Radiação"))
+    st.bar_chart(data=rmse_radiacao, x="ID", y=rmse_radiacao.columns[1:], stack=False, use_container_width=True)
+    # st.image(figura2(pasta="RMSE", option="RMSE_Radiação"))
 
 if drogra_radiacao.button("Grupo de Droga+Radiação", width="stretch"):
-    st.image(figura2(pasta="RMSE", option="RMSE_Droga_Radiação"))
+    st.bar_chart(data=rmse_droga_radiacao, x="ID", y=rmse_droga_radiacao.columns[1:], stack=False, use_container_width=True)
+    # st.image(figura2(pasta="RMSE", option="RMSE_Droga_Radiação"))
 
+#=================================================================================================
+#
+#=================================================================================================
 
-st.markdown("""# Simulação Computacional""")
+st.markdown("""#### Comparação das Curvas Ajustada""")
 
 # Criando caixa seletora para visualizar as curvas do modelo escolhido
-model = st.selectbox("Escolha o Modelo", Modelos, key="modelos simulação")
+model = st.selectbox("Escolha o Modelo", Modelos, key="modelos comparação")
+
+dic = {}
+lista_completa = [*id_Controle, *id_Droga, *id_Radiacao, *id_Droga_Radiacao]
 
 if model == "Logístico":
-    escolha = st.selectbox("Escolha o grupo", Grupos)
-    selecao = st.selectbox("Escolha o grupo", id_Controle)
-    #selecao = st.multiselect("Escolha", )
-    x, y = ML(df_Logistico).logistica(ID=id_Controle)
-    data_simulacao = pd.DataFrame({"Tempo em Dias":x, "Volume do Tumor":y})
-    st.line_chart(data=data_simulacao, x="Tempo em Dias", y="Volume do Tumor")
+    for i in lista_completa:
+        x,y = ML(df_Logistico).logistico(ID=i)
+        dic[i] = y
+    dic["Tempo em Dias"] = x
+    data_simulacao = pd.DataFrame(dic)
+    selecao = st.pills("Escolha", lista_completa, selection_mode="multi", key="Comparação Logístico")
+    st.line_chart(data=data_simulacao, x="Tempo em Dias", y=selecao, y_label="Volume do tumor", use_container_width=True)
 
+elif model == "Gompertz":
+    for i in lista_completa:
+        x,y = MG(df_Gompertz).gompertz(ID=i)
+        dic[i] = y
+    dic["Tempo em Dias"] = x
+    data_simulacao = pd.DataFrame(dic)
+    selecao = st.pills("Escolha", lista_completa, selection_mode="multi")
+    st.line_chart(data=data_simulacao, x="Tempo em Dias", y=selecao, y_label="Volume do tumor", use_container_width=True)
 
+elif model == "Logístico Generalizado":
+    for i in lista_completa:
+        x,y = MLG(df_Log_Gen).logistico_generalizado(ID=i)
+        dic[i] = y
+    dic["Tempo em Dias"] = x
+    data_simulacao = pd.DataFrame(dic)
+    selecao = st.pills("Escolha", lista_completa, selection_mode="multi")
+    st.line_chart(data=data_simulacao, x="Tempo em Dias", y=selecao, y_label="Volume do tumor", use_container_width=True)
 
-
-
-
+elif model == "Gompertz Modificado":
+    for i in lista_completa:
+        x,y = MGM(df_Gomp_Mod).gompertz_modificado(ID=i)
+        dic[i] = y
+    dic["Tempo em Dias"] = x
+    data_simulacao = pd.DataFrame(dic)
+    selecao = st.pills("Escolha", lista_completa, selection_mode="multi")
+    st.line_chart(data=data_simulacao, x="Tempo em Dias", y=selecao, y_label="Volume do tumor", use_container_width=True)
 
 
 

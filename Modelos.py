@@ -33,7 +33,7 @@ class Parametros():
 
 class Modelo_Logistico(Parametros):
   
-    def logistica(self, ID=str):
+    def logistico(self, ID=str):
         K = 2000
         t = np.linspace(0,28, 100)
         lista = []
